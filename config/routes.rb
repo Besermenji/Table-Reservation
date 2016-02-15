@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   get 'guest/index'
+  get 'invite_firends/:id' => 'guest#invite_friends', as: :invite_friends
   post 'rate_restaurant/:id' => 'guest#rate_restaurant', as: :rate_restaurant
+  
 
   get 'bulk_reservation/bulk_reserve'
 

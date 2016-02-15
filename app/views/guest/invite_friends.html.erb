@@ -1,0 +1,19 @@
+<br>
+<% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+<table>
+  <tr>
+    <th>&nbsp;</th>
+    <th>&nbsp;</th>
+  </tr>
+  <% @friends.each do |friend| %>
+    <tr>
+      <td><%= friend.first_name << ' ' << friend.last_name %></td>
+      <td>
+       not yet implemented!
+      </td>
+    </tr>
+  <% end %>
+</table>

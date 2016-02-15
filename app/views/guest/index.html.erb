@@ -22,6 +22,9 @@
 						<th>
 							Your Rating
 						</th>
+						<th>
+							&nbsp;
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -44,6 +47,9 @@
 						<% else %>
 					           <%= @ratings[index].rating %>	
 						<% end %>
+						</td>
+						<td>
+							<%= button_to 'Invite Friends!', invite_friends_path(@ratings[index]), method: 'get' %>
 						</td>
 					</tr>
 				<% end %>
