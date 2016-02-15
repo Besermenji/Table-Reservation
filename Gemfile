@@ -19,6 +19,8 @@ gem 'devise'
 gem 'authority'
 gem 'rolify'
 
+gem 'sidekiq'
+
 #gem for mocking mailbox for development
 gem 'mailcatcher'
 
