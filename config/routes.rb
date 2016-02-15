@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   get 'guest/index'
   post 'rate_restaurant/:id' => 'guest#rate_restaurant', as: :rate_restaurant
 

@@ -20,6 +20,8 @@ gem 'authority'
 gem 'rolify'
 
 gem 'sidekiq'
+gem 'sinatra'
+gem 'devise-async'
 
 #gem for mocking mailbox for development
 gem 'mailcatcher'
