@@ -1,0 +1,13 @@
+<% if @table.errors.any? %>
+  <div class="errors">
+    <h3>
+      <%= pluralize(@table.errors.count, 'error') %>
+      prohibited this table from being saved:
+    </h3>
+    <ul>
+      <% @table.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

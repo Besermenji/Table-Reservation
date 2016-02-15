@@ -1,0 +1,13 @@
+/usr/bin/ruby2.2 -r ./siteconf20160127-6112-4w6lqk.rb extconf.rb
+checking for main() in -lc... yes
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling parser.c
+compiling thin.c
+linking shared-object thin_parser.so
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 thin_parser.so ./.gem.20160127-6112-w368pt

@@ -1,0 +1,72 @@
+# a class that is used for reserving tables in bulks
+class BulkReservationController < ApplicationController
+  before_action :set_restaurant
+  before_action :set_start_time
+
+  def bulk_reserve
+    selected_tables
+    if are_reservable?
+      @tables.each do |table|
+        create_booking(table)
+      end
+      redirect_to guest_index_path
+    else
+      flash[:alert] = 'Tables cannot be reserved!'
+      redirect_to @restaurant
+    end
+  end
+
+  private
+
+  # creates new booking for given table
+  def create_booking(table)
+    booking = Booking.new(table_id: table.id,
+                          start_time: @start_date,
+                          end_time: @start_date + params[:hours].to_i.hours,
+                          length: params[:hours],
+                          user_id: current_user.id)
+    booking.table = table
+    booking.save
+  end
+
+  # sets the object that represents starting time
+  #   of the reservation
+  def set_start_time
+    @start_date = Time.zone.local(*params[:reservation].sort.map(&:last)
+      .map(&:to_i))
+  end
+
+  # returns true if all tables can be reserved
+  #   else, returns false
+  def are_reservable?
+    reservable = true
+    @tables.each do |table|
+      break unless reservable
+      table.bookings.find_each do |booking|
+        next unless @start_date.between?(booking.start_time, booking.end_time)
+        reservable = false
+      end
+    end
+    reservable = false unless (params[:hours].is_a? Integer) &&
+                              (params[:hours] > 0)
+  end
+
+  # set the restaurant instance variable
+  #   to the current restaurant from the view
+  def set_restaurant
+    @restaurant = Restaurant.find(params[:restaurant_id])
+  end
+
+  # fills up the array of tables
+  #   with the tables that were selected
+  #   with check box ( in view)
+  def selected_tables
+	  byebug
+    @tables = []
+    @restaurant.tables.find_each do |table|
+      next unless params[('table ' << table.id.to_s).to_sym]
+      @tables << table
+    end
+  end
+
+end

@@ -1,0 +1,35 @@
+<br>
+<% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Role</th>
+    <th>&nbsp;</th>
+  </tr>
+  <% for user in @users %>
+    <tr>
+      <td><%= user.first_name << ' ' << user.last_name %></td>
+      <td><%= user.roles.first.name %></td>
+      <td>
+        <% case action_name %>
+        <% when 'add_friends' %>
+          <%= button_to "Add Friend", { action: "add_to_friends", id: user.id },
+		  method: :post %>
+	<% when 'manage_pending_friend_requests'%>
+          <%= button_to "Accept Request", {action: "accept_friend_requests", id: user.id },
+		  method: :post %></td><td>
+          <%= button_to "Decline Request", {action: "decline_friend_requests", id: user.id},
+		  method: :post %>
+        <% when 'my_friends' %>
+          <%= button_to "Remove From Friends", {action: 'remove_from_friends', id: user.id},
+                  method: :post %>	
+        <% else %>
+          &nbsp;
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

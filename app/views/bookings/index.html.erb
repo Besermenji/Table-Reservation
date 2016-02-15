@@ -1,0 +1,22 @@
+<h3> Bookings for <%= @table.name %></h3>
+<table class="bookings_table">
+  <tr>
+    <th>Start</th>
+    <th>End</th>
+  </tr>
+  
+  <% @bookings.each do |booking| %>
+  <tr>
+    <td>
+      <%= booking.start_time.strftime('%e %b %Y %H:%M%p') %>
+    </td>
+    <td>
+      <%= (booking.calculate_end_time + 60).strftime('%e %b %Y %H:%M%p') %>
+    </td>
+    <td><%= link_to "Delete", restaurant_table_booking_path(@restaurant, @table, booking), data: { confirm: 'Are you sure?' }, method: :delete %>
+    </td>
+    <td><%= link_to "Edit", edit_restaurant_table_booking_path(@restaurant, @table, booking) %>
+    </td>
+  </tr>
+  <% end %>
+</table>

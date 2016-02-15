@@ -1,0 +1,11 @@
+<h3>tables</h3>
+
+<% @tables.each do |table| %>
+  <div class="table">
+    <%= table.name %>
+    <%= link_to "Show all bookings", table_bookings_path(table) %>
+    <%= link_to "Delete", table_path(table), data: { confirm: 'Are you sure?' }, method: :delete %>
+    <%= link_to "Edit", edit_table_path(table) %>
+    <%= link_to "Add booking", new_table_booking_path(table) %>
+  </div>
+<% end %>
