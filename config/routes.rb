@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   post 'rate_restaurant/:id' => 'guest#rate_restaurant', as: :rate_restaurant
   get 'accept_invites/:token' => 'guest#accept_invite', as: :accept_invite
   post 'send_invites/:id' => 'guest#send_invite', as: :send_invite  
+  post 'invitation_accepted/:token' => 'guest#invite_accepted', as: :invitation_accepted
+  post 'invitation_declined/:token' => 'guest#invite_declined', as: :invitation_declined
 
   get 'bulk_reservation/bulk_reserve'
 

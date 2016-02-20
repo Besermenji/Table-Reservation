@@ -1,0 +1,8 @@
+<h3> Invitation for restaurant <strong><%= @restaurant.name %></strong></h3>
+<br>
+<p>Date: <strong><%= @rating.visited_date.to_date %></strong></p>
+<p>Time: <strong><%= @rating.visited_date.to_time %></strong></p>
+<p>Invited by: <strong><%= @inviter.full_name  %></strong> </p>
+<%= button_to "Accept", invitation_accepted_path(@invite.token), {class: 'btn btn-default'} %>
+<%= button_to "Decline", invitation_declined_path(@invite.token), {class: 'btn btn-default'} %>
+

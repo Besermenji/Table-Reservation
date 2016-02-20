@@ -12,7 +12,7 @@
     <tr>
       <td><%= friend.full_name %></td>
       <td>
-        <%= button_to "Invite!", send_invite_path(friend.id), {class: 'btn btn-default'} %> 
+        <%= button_to "Invite!", send_invite_path(user_id: friend.id, id: @rating.id), {class: 'btn btn-default'} %> 
       </td>
     </tr>
   <% end %>
