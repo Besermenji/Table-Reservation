@@ -4,7 +4,7 @@ class BulkReservationController < ApplicationController
   before_action :set_start_end_time
 
   def bulk_reserve
-    if are_reservable?
+    if are_reservable? && is_any_checked?
       @restaurant.tables.find_each do |table|
         next unless params[('table ' << table.id.to_s).to_sym]
         create_booking(table)
@@ -55,6 +55,14 @@ class BulkReservationController < ApplicationController
       end
     end
     reservable
+  end
+
+  def is_any_checked?
+    any = false
+    @restaurant.tables.find_each do |table|
+      any = true if  params[('table ' << table.id.to_s).to_sym]
+    end
+    any
   end
 
   def create_rating

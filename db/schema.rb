@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160209084739) do
+ActiveRecord::Schema.define(version: 20160220193922) do
 
   create_table "bookings", force: :cascade do |t|
     t.datetime "start_time"
@@ -33,6 +33,18 @@ ActiveRecord::Schema.define(version: 20160209084739) do
     t.datetime "updated_at"
     t.integer  "blocker_id"
   end
+
+  create_table "invitations", force: :cascade do |t|
+    t.string   "token"
+    t.boolean  "accepted"
+    t.integer  "rating_id"
+    t.integer  "invited_user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "invitations", ["invited_user_id"], name: "index_invitations_on_invited_user_id"
+  add_index "invitations", ["rating_id"], name: "index_invitations_on_rating_id"
 
   create_table "meals", force: :cascade do |t|
     t.string   "name"

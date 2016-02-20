@@ -1,0 +1,9 @@
+<h3> Dear <%= @invited_user.full_name %> !</h3>
+<br>
+<p>
+You have been invited to <strong><%= @restaurant.name  %></strong> 
+at <strong><%= @rating.visited_date  %></strong> 
+by <strong><%= @inviter_user.full_name %></strong>!
+</p>
+<br>
+<p> Click  <%= link_to 'here' accept_invite(@invite.token)%> to go to invitation page!</p>

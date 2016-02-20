@@ -12,4 +12,9 @@ class User < ActiveRecord::Base
   has_many :bookings
   has_many :ratings, foreign_key: 'visitor_id'
   has_many :visited, class_name: 'Restaurant', foreign_key: 'visited_id', through: :ratings	
+  has_many :invitations, foreign_key: 'invited_user_id'
+
+  def full_name
+    [first_name, last_name].join(' ')  
+  end
 end
