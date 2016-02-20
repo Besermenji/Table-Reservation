@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   get 'guest/index'
   get 'invite_firends/:id' => 'guest#invite_friends', as: :invite_friends
   post 'rate_restaurant/:id' => 'guest#rate_restaurant', as: :rate_restaurant
-  
+  get 'accept_invites/:token' => 'guest#accept_invite', as: :accept_invite
+  post 'send_invites/:id' => 'guest#send_invite', as: :send_invite  
 
   get 'bulk_reservation/bulk_reserve'
 

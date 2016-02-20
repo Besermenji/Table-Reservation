@@ -1,5 +1,5 @@
 class GuestController < ApplicationController
-  before_action :set_rating, only: [:rate_restaurant, :invite_friends]
+  before_action :set_rating, only: [:rate_restaurant, :invite_friends, :send_invite]
 
   def index
     @ratings = Rating.where(visitor_id: current_user.id)
@@ -18,9 +18,16 @@ class GuestController < ApplicationController
   def invite_friends
     @friends = [] 
     current_user.friends.find_each do |f|
-      next if Rating.find_by(visitor_id: f.id, visited_date: @rating.visited_date)	 
-      @friends << f
+    next if Invitation.find_by(invited_user_id: f.id,
+			       rating_id: @rating.id)	 
+    @friends << f
     end 
+  end
+
+  def send_invite
+    RestaurantInviter.invite(@rating.id,params[:id],current_user.id).deliver_now  
+    flash[:notice] = User.find(params[:id]).full_name << ' is invited!'
+    redirect_to invite_friends_path(@rating)
   end
 
   private

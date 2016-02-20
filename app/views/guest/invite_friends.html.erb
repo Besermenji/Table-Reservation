@@ -10,9 +10,9 @@
   </tr>
   <% @friends.each do |friend| %>
     <tr>
-      <td><%= friend.first_name << ' ' << friend.last_name %></td>
+      <td><%= friend.full_name %></td>
       <td>
-       not yet implemented!
+        <%= button_to "Invite!", send_invite_path(friend.id), {class: 'btn btn-default'} %> 
       </td>
     </tr>
   <% end %>
