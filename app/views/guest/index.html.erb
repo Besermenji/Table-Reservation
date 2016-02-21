@@ -48,8 +48,11 @@
 					           <%= @ratings[index].rating %>	
 						<% end %>
 						</td>
-						<td> 
+						<td> <% unless Invitation.find_by(rating_id: @ratings[index].id).nil? %>
 							<%= button_to 'Invite Friends!', invite_friends_path(@ratings[index]), method: 'get' %>
+						<% else %>
+								&nbsp;
+                                                      <% end %>
 						</td>
 					</tr>
 				<% end %>
