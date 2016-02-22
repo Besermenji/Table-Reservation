@@ -1,5 +1,5 @@
 class Restaurant < ActiveRecord::Base
-  belongs_to :user
+  has_many :managers, class_name: 'User'
   has_many :meals, dependent: :destroy
   has_many :tables, dependent: :destroy
   has_many :ratings, foreign_key: 'visited_id'

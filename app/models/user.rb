@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   
   validates :first_name, :last_name, :adress, presence: true
   
-  has_many :restaurants
+  belongs_to :restaurants 
   has_many :bookings
   has_many :ratings, foreign_key: 'visitor_id'
   has_many :visited, class_name: 'Restaurant', foreign_key: 'visited_id', through: :ratings	
