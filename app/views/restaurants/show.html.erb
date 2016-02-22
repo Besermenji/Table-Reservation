@@ -16,11 +16,13 @@
   <%= @restaurant.description %>
 </h4>
 
-
+<% if current_user.has_role?(:sys_admin) || @restaurant.managers.include?(current_user) %>
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'Back', restaurants_path %> |
 <%= link_to 'New Meal', new_restaurant_meal_path(@restaurant) %>|
-<%= link_to 'New Table', new_restaurant_table_path(@restaurant) %>
+<%= link_to 'New Table', new_restaurant_table_path(@restaurant) %>|
+<% end %>
+<%= link_to 'Back', restaurants_path %> 
+
 
 		</div>
 		<div class="col-md-4">
@@ -30,6 +32,7 @@
 <br>
 	<div class="row">
 		<div class="col-md-5">
+			<%unless @restaurant.meals.empty? %>
 <table class="table table-striped">
   <thead>
       <tr>
@@ -44,34 +47,44 @@
       <tr>
         <td><%= meal.name %></td>
         <td><%= meal.description %></td>
-        <td><%= meal.price %></td>
-        <td><%= link_to 'Edit', edit_restaurant_meal_path(@restaurant.id, meal) %></td>
-        <td><%= link_to 'Destroy', [@restaurant, meal], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	<td><%= meal.price %></td>
+	<% if current_user.has_role?(:sys_admin) || @restaurant.managers.include?(current_user) %>
+          <td><%= link_to 'Edit', edit_restaurant_meal_path(@restaurant.id, meal) %></td>
+	  <td><%= link_to 'Destroy', [@restaurant, meal], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
-</table>		
+</table>
+<% else %>
+	<p> No meals in this restaurant! </p>
+<% end %>
 </div>
 		<div class="col-md-2">
 		</div>
 		<div class="col-md-5">
+			<% unless @restaurant.tables.empty? %>
 <%= form_tag restaurant_bulk_reserve_path(@restaurant), method: 'post' do %>
 <table class="table table-striped">
   <thead>
       <tr>
         <th>Name</th>
-        <th>Chairs number</th>
-        <th colspan="3"></th>
+	<th>Chairs number</th>
+	<th colstan='2'></th>
+	<th> Reserve?</th>
       </tr>
   </thead>
   <tbody>
     <% @restaurant.tables.each do |table| %>
       <tr>
         <td><%= table.name %></td>
-        <td><%= table.no_chairs %></td>
+	<td><%= table.no_chairs %></td>
+	<% if current_user.has_role?(:sys_admin) || @restaurant.managers.include?(current_user) %>
+
         <td><%= link_to 'Edit', edit_restaurant_table_path(@restaurant.id, table) %></td>
 	<td><%= link_to 'Destroy', [@restaurant, table], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-	<td>Reserve? <%= check_box_tag 'table ' << table.id.to_s %></td>
+<% end %>
+	<td><%= check_box_tag 'table ' << table.id.to_s %></td>
       </tr>
     <% end %>
   </tbody>
@@ -80,11 +93,13 @@
 <br>
 <p>Reservation date <%= datetime_select 'reservation','time', {minute_step: 15} %></p>
 <br>
-<p>Reservation length(hours) <%= number_field_tag 'hours' %></p>
+<p>Reservation length(hours) <%= number_field_tag 'hours', in: 1..10, reuqired: true %></p>
 <br>
 <%= submit_tag 'Reserve selected!' %>
 <%end%>
-		</div>
+<% else %>
+	<p>No tables in this restaurant! </p>
+<% end %>		</div>
 	</div>
 
 
