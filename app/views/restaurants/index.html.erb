@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Restaurants</h1>
-
-<table>
+<% if @restaurants %>
+<table class='table table-striped table-hover'>
   <thead>
     <tr>
       <th>Name</th>
@@ -16,9 +16,14 @@
       <tr>
         <td><%= restaurant.name %></td>
         <td><%= restaurant.description %></td>
-        <td><%= link_to 'Show', restaurant %></td>
-        <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
-        <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	<td><%= link_to 'Show', restaurant %></td>
+	<% if current_user.has_role?(:sys_admin)%>
+          <td><%= link_to 'Edit', edit_restaurant_path(restaurant) %></td>
+	  <td><%= link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% else %>
+	  <td> &nbsp; </td>
+	  <td> &nbsp; </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -27,4 +32,7 @@
 <br>
 <%= will_paginate @restaurants %>
 <br>
-<%= link_to 'New Restaurant', new_restaurant_path %>
+<% else %>
+	<p> Add a restaurant (pls)! </p>
+<% end %>
+<%= link_to 'New Restaurant', new_restaurant_path if current_user.has_role?(:sys_admin)%>

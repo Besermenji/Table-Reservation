@@ -1,4 +1,4 @@
-<%= form_for(@restaurant) do |f| %>
+<%= bootstrap_form_for(@restaurant) do |f| %>
   <% if @restaurant.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@restaurant.errors.count, "error") %> prohibited this restaurant from being saved:</h2>
@@ -12,11 +12,9 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, required: true %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
   <div class="actions">

@@ -5,6 +5,8 @@ class Restaurant < ActiveRecord::Base
   has_many :ratings, foreign_key: 'visited_id'
   has_many :visitors, class_name: 'User', foreign_key: 'visitor_id', through: :ratings
 
+  validates :name, presence: true
+
 
   def average_rating
     average = 0
