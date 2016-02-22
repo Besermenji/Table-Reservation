@@ -4,31 +4,26 @@
   <div class="alert"><%= flash[:alert] %></div>
 <% end %>
 
-<%= form_for @user,url: {action: 'create'} do |f| %>
+<%= bootstrap_form_for @user,url: {action: 'create'} do |f| %>
 
   <div class="field">
-    <%= f.label :first_name %><br />
     <%= f.text_field :first_name, autofocus: true %>
   </div>
 
   <div class="field">
-   <%= f.label :last_name %><br />
    <%= f.text_field :last_name %>
   </div>
 		<div class="field">
-	    		<%= f.label :adress %><br />
 	    		<%= f.text_field :adress %>
 	  	</div>
   <div class="field">
      <div id="map"></div>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
     <%= f.email_field :email %>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
@@ -36,8 +31,11 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <div class='field'>
+	  <%= f.select(:restaurant_id, @restaurants.map { |r| [r.name, r.id]}) %>
   </div>
 
   <div class="actions">

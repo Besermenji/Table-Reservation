@@ -51,6 +51,7 @@ GEM
       rails_12factor
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
+    bootstrap_form (2.3.0)
     builder (3.2.2)
     byebug (8.2.2)
     coderay (1.1.0)
@@ -227,6 +228,7 @@ DEPENDENCIES
   autoprefixer-rails
   bookable (~> 0.0.52)
   bootstrap-sass (~> 3.2.0)
+  bootstrap_form
   coffee-rails (~> 4.1.0)
   devise
   devise-async

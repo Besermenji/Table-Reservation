@@ -2,6 +2,7 @@ class AddManagerController < ApplicationController
   
   def index
     @user = User.new
+    @restaurants = Restaurant.all
   end
 
   def create
@@ -19,6 +20,12 @@ class AddManagerController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :adress, :password, :password_confirmation)
+    params.require(:user).permit(:email, 
+				 :first_name, 
+				 :last_name, 
+				 :adress, 
+				 :password, 
+				 :password_confirmation, 
+				 :restaurant_id)
   end
 end
