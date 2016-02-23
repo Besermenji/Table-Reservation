@@ -19,16 +19,10 @@
 	  <%= submit_tag "Search" %>
   <% end %>
   <br>
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Role</th>
-    <th>&nbsp;</th>
-  </tr>
+<table class='table table-striped table-hover'>
   <% for user in @users %>
     <tr>
-      <td><%= user.first_name << ' ' << user.last_name %></td>
-      <td><%= user.roles.first.name %></td>
+      <td><%= user.full_name %></td>
       <td>
         <% case action_name %>
         <% when 'add_friends' %>
@@ -49,6 +43,7 @@
     </tr>
   <% end %>
 </table>
+  <%= will_paginate @users %>
 <% else %>
 	<p> No people here! </p>
 <% end %>

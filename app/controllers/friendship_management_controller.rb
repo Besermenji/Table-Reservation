@@ -1,10 +1,12 @@
 class FriendshipManagementController < ApplicationController
-	
+  PAGE_NUM = 10.freeze
+
   def add_friends
     if params[:search]
-      @users = User.search(params[:search]).where.not(id: (current_user.friends.map(&:id) << current_user.pending_friends.map(&:id) << current_user.id))
+      @users = User.search(params[:search]).where.not(id: (current_user.friends.map(&:id) << current_user.pending_friends.map(&:id) << current_user.id)).paginate(page: params[:page], per_page: PAGE_NUM)
     else
-      @users = User.where.not(id: (current_user.friends.map(&:id) << current_user.pending_friends.map(&:id) << current_user.id))
+     @users = User.where.not(id: (current_user.friends.map(&:id) << current_user.pending_friends.map(&:id) << current_user.id)).paginate(page: params[:page], per_page: PAGE_NUM)
+
     end
     render '_table'
   end
@@ -18,9 +20,9 @@ class FriendshipManagementController < ApplicationController
 
   def manage_pending_friend_requests
     if params[:search]
-      @users = current_user.search(params[:search]).requested_friends  
+      @users = current_user.search(params[:search]).requested_friends.paginate(page: params[:page], per_page: PAGE_NUM)
     else
-      @users = current_user.requested_friends
+      @users = current_user.requested_friends.paginate(page: params[:page], per_page: PAGE_NUM)
     end
     render '_table'
   end
@@ -41,9 +43,9 @@ class FriendshipManagementController < ApplicationController
 
   def my_friends
     if params[:search]
-      @users = current_user.search(params[:search]).friends
+      @users = current_user.search(params[:search]).friends.paginate(page: params[:page], per_page: PAGE_NUM)
     else
-      @users = current_user.friends
+      @users = current_user.friends.paginate(page: params[:page], per_page: PAGE_NUM)
     end
     render '_table'
   end
