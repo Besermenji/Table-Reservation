@@ -6,9 +6,14 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   helper_method :restaurant_authorization
+  helper_method :sys_admin_authorization
 
-  def restaurant_authorization
-    redirect_to forbidden_acces_path unless current_user && (current_role == 'sys_admin' || current_role == 'manager')
+  def sys_admin_authorization
+    redirect_to forbidden_acces_path unless current_role == 'sys_admin'
+  end
+
+  def restaurant_authorization(restaurant)
+    redirect_to forbidden_acces_path unless current_role == 'sys_admin' || restaurant.managers.include?(current_user)
   end
 
   private

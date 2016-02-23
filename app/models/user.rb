@@ -17,4 +17,10 @@ class User < ActiveRecord::Base
   def full_name
     [first_name, last_name].join(' ')  
   end
+
+  def self.search(search)
+    where('first_name LIKE ? OR last_name LIKE ?',
+	  "%#{search[0]}%",
+	  "%#{search[1]}%")
+  end
 end

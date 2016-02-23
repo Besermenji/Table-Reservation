@@ -1,7 +1,11 @@
 class FriendshipManagementController < ApplicationController
 	
   def add_friends
-    @users = User.where.not(id: (current_user.friends.map(&:id) << current_user.pending_friends.map(&:id) << current_user.id))
+    if params[:search]
+      @users = User.search(params[:search]).where.not(id: (current_user.friends.map(&:id) << current_user.pending_friends.map(&:id) << current_user.id))
+    else
+      @users = User.where.not(id: (current_user.friends.map(&:id) << current_user.pending_friends.map(&:id) << current_user.id))
+    end
     render '_table'
   end
 
@@ -13,7 +17,11 @@ class FriendshipManagementController < ApplicationController
   end
 
   def manage_pending_friend_requests
-    @users = current_user.requested_friends  
+    if params[:search]
+      @users = current_user.search(params[:search]).requested_friends  
+    else
+      @users = current_user.requested_friends
+    end
     render '_table'
   end
 
@@ -32,7 +40,11 @@ class FriendshipManagementController < ApplicationController
   end
 
   def my_friends
-    @users = current_user.friends
+    if params[:search]
+      @users = current_user.search(params[:search]).friends
+    else
+      @users = current_user.friends
+    end
     render '_table'
   end
 

@@ -1,5 +1,5 @@
 class AddManagerController < ApplicationController
-  
+  before_action :sys_admin_authorization  
   def index
     @user = User.new
     @restaurants = Restaurant.all

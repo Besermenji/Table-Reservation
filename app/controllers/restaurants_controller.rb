@@ -1,12 +1,13 @@
 class RestaurantsController < ApplicationController
-  #before_action :authenticate_user!
-  before_action :restaurant_authorization	
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action only: [:new, :edit, :update, :destroy] do
+    restaurant_authorization(@restaurant)
+  end
 
   # GET /restaurants
   # GET /restaurants.json
   def index
-	  @restaurants = Restaurant.all.paginate(page: params[:page], per_page: 10)
+    @restaurants = Restaurant.all.paginate(page: params[:page], per_page: 10)
   end
 
   # GET /restaurants/1
@@ -16,7 +17,7 @@ class RestaurantsController < ApplicationController
 
   # GET /restaurants/new
   def new
-	  @restaurant = Restaurant.new
+    @restaurant = Restaurant.new
   end
 
   # GET /restaurants/1/edit

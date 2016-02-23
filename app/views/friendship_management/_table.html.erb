@@ -2,7 +2,23 @@
 <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>"><%= value %></div>
   <% end %>
-
+  <br>
+  <% path = case controller.action_name
+            when 'add_friends'
+              add_friends_path
+            when 'manage_pending_friend_requests'
+              manage_friend_requests_path
+            when 'my_friends'
+              my_friends_path
+            else 
+		    root_path 
+	    end %>
+    <% unless @users.blank? %>
+  <%= form_tag(path, :method => "get", id: "search-form") do %>
+	  <%= text_field_tag :search, params[:search], placeholder: "Search people" %>
+	  <%= submit_tag "Search" %>
+  <% end %>
+  <br>
 <table>
   <tr>
     <th>Name</th>
@@ -33,3 +49,6 @@
     </tr>
   <% end %>
 </table>
+<% else %>
+	<p> No people here! </p>
+<% end %>

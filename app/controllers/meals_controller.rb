@@ -1,6 +1,9 @@
 class MealsController < ApplicationController
   before_action :set_restaurant
   before_action :set_meal, only: [:show, :edit, :update, :destroy]
+  before_action only: [:new, :edit, :update, :destroy, :show] do
+    restaurant_authorization(@restaurant)
+  end
 
   # GET /meals
   # GET /meals.json

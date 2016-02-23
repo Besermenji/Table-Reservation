@@ -1,6 +1,9 @@
 class TablesController < ApplicationController
   before_action :set_restaurant
   before_action :set_table, only: [:show, :edit, :update, :destroy]
+  before_action only: [:show, :edit, :update, :destroy, :new] do
+    restaurant_authorization(@restaurant)
+  end
 
   def index
     @tables = @restaurant.tables.all
