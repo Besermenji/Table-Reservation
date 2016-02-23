@@ -79,6 +79,7 @@
       <tr>
         <td><%= table.name %></td>
 	<td><%= table.no_chairs %></td>
+	<td><%= link_to 'Show bookings', restaurant_table_bookings_path(@restaurant.id, table.id) %>
 	<% if current_user.has_role?(:sys_admin) || @restaurant.managers.include?(current_user) %>
 
         <td><%= link_to 'Edit', edit_restaurant_table_path(@restaurant.id, table) %></td>

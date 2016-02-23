@@ -13,9 +13,9 @@ Rails.application.routes.draw do
 
   get 'bulk_reservation/bulk_reserve'
 
- # resources :tables do
-#	  resources :bookings
-#	end
+  #resources :tables do
+#	  resources :bookings, only: [:show]
+ # end
  # resources :tables do
 #		end
   # resources :meals
@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   resources :restaurants do
     resources :meals
     resources :tables do
-      resources :bookings
+      resources :bookings, only: [:index]
     end
     post 'bulk_reserve' => 'bulk_reservation#bulk_reserve'
   end
