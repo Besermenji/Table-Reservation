@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160220193922) do
+ActiveRecord::Schema.define(version: 20160227132001) do
 
   create_table "bookings", force: :cascade do |t|
     t.datetime "start_time"
@@ -51,8 +51,9 @@ ActiveRecord::Schema.define(version: 20160220193922) do
     t.text     "description"
     t.decimal  "price"
     t.integer  "restaurant_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "lock_version",  default: 0, null: false
   end
 
   add_index "meals", ["restaurant_id"], name: "index_meals_on_restaurant_id"
@@ -72,8 +73,9 @@ ActiveRecord::Schema.define(version: 20160220193922) do
   create_table "restaurants", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -91,6 +93,7 @@ ActiveRecord::Schema.define(version: 20160220193922) do
     t.string  "name"
     t.integer "no_chairs"
     t.integer "restaurant_id"
+    t.integer "lock_version",  default: 0, null: false
   end
 
   add_index "tables", ["restaurant_id"], name: "index_tables_on_restaurant_id"

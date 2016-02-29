@@ -92,9 +92,9 @@
 </table>
 
 <br>
-<p>Reservation date <%= datetime_select 'reservation','time', {minute_step: 15} %></p>
+<p>Reservation date <%= datetime_select 'reservation','time', {minute_step: 15, start_year: Time.now.year} %></p>
 <br>
-<p>Reservation length(hours) <%= number_field_tag 'hours', in: 1..10, reuqired: true %></p>
+<p>Reservation length(hours) <%= number_field_tag 'hours',nil,  min:1, max:10 , reuqired: true %></p>
 <br>
 <%= submit_tag 'Reserve selected!' %>
 <%end%>

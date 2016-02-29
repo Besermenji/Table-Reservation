@@ -61,7 +61,7 @@ class TablesController < ApplicationController
   private
 
     def table_params
-      params.require(:table).permit(:name,:no_chairs, :delete)
+      params.require(:table).permit(:name,:no_chairs, :delete, :lock_version)
     end
 
 end

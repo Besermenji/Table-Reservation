@@ -1,4 +1,5 @@
 <%= bootstrap_form_for([@restaurant, @table]) do |f| %>
+	<%= f.hidden_field :lock_version %>
   <% if @table.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@table.errors.count, "error") %> prohibited this meal from being saved:</h2>

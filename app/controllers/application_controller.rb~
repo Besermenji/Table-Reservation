@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def error_render_method
     respond_to do |type|
-      type.all  { render :file => 'public/422.html', :status => :not_found}
+      type.all  { render :file => 'public/422.html', :status => :not_found, :layout => false }
     end
     true
   end

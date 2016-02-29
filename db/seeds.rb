@@ -35,7 +35,7 @@ sys_admin.add_role :sys_admin
 end
 
 
-100.times do |i|
+1000.times do |i|
   email = 'guest' << (i+1).to_s << '@guest.com'
   first_name = Faker::Name.first_name 
   last_name = Faker::Name.last_name 

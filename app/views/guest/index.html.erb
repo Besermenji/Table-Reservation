@@ -43,10 +43,13 @@
 					           <%= @ratings[index].rating %>	
 						<% end %>
 						</td>
+						<% if Rating.was_i_invited?(@ratings[index].id, @ratings[index].visited_id, @ratings[index].visited_date) %>
 						<td> 
 							<%= button_to 'Invite Friends!', invite_friends_path(@ratings[index]), method: 'get' %>
 						
-						</td>
+						</td> 
+						<% end %>
+
 					</tr>
 				<% end %>
 				</tbody>
